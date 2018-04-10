@@ -1,0 +1,22 @@
+{
+  "name": "nepttune/mongo",
+  "description": "Mongo DB Nette extension",
+  "homepage": "https://www.peldax.com",
+  "type": "library",
+  "license": ["MIT"],
+  "authors": [
+    {
+      "name": "Václav Pelíšek",
+      "homepage": "https://www.peldax.com"
+    }
+  ],
+  "require": {
+    "nepttune/base-requirements": "^4.0",
+    "mongodb/mongodb": "^1.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Nepttune\\Mongo\\": "src/"
+    }
+  }
+}
