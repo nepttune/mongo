@@ -2,39 +2,23 @@
 
 namespace Nepttune\Mongo\Diagnostics;
 
-use Nepttune\Mongo\MongoClientException;
-use Nette;
-use Nette\PhpGenerator as Code;
-use Tracy\Debugger;
-use Tracy\IBarPanel;
-
-class Panel implements IBarPanel
+class Panel implements \Tracy\IBarPanel
 {
-	use Nette\SmartObject;
+	use \Nette\SmartObject;
 
-	/**
-	 * @var float
-	 */
+	/** @var float */
 	private $totalTime = 0;
 
-	/**
-	 * @var array
-	 */
+	/** @var array */
 	private $queries = [];
 
-	/**
-	 * @var array
-	 */
+	/** @var array */
 	private $errors = [];
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	public $renderPanel = TRUE;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	public $name;
 
     /** @noinspection MoreThanThreeArgumentsInspection */
@@ -61,22 +45,7 @@ class Panel implements IBarPanel
         }
     }
 
-	/**
-	 * @param \Exception|\Throwable $e
-	 */
-	public function error($e)
-	{
-		$this->errors[] = $e;
-		if ($query = end($this->queries)) {
-			$query->errors[] = $e;
-		}
-	}
-
-	/**
-	 * Renders HTML code for custom tab.
-	 * @return string
-	 */
-	public function getTab()
+	public function getTab() : string
 	{
 		return
 			'<style>
@@ -90,8 +59,8 @@ class Panel implements IBarPanel
 			'<span title="Mongo Storage' . ($this->name ? ' - ' . $this->name : '') . '" class="nepttune-Mongo-panel">' .
 			file_get_contents(__DIR__ . '/logo.svg') .
 			'<span class="tracy-label">' .
-				count($this->queries) . ' queries' .
-				($this->errors ? ' / ' . count($this->errors) . ' errors' : '') .
+				\count($this->queries) . ' queries' .
+				($this->errors ? ' / ' . \count($this->errors) . ' errors' : '') .
 				($this->queries ? ' / ' . sprintf('%0.1f', $this->totalTime) . ' ms' : '') .
 			'</span></span>';
 	}
@@ -115,7 +84,7 @@ class Panel implements IBarPanel
 		}
 
 		return empty($this->queries) ? '' :
-			'<h1>Queries: ' . count($this->queries) . ($this->totalTime ? ', time: ' . sprintf('%0.3f', $this->totalTime * 1000) . ' ms' : '') . '</h1>
+			'<h1>Queries: ' . \count($this->queries) . ($this->totalTime ? ', time: ' . sprintf('%0.3f', $this->totalTime * 1000) . ' ms' : '') . '</h1>
 			<div class="nette-inner tracy-inner nepttune-MongoClientPanel">
 			<table>
 				<tr><th>Time&nbsp;µs</th><th>DB</th><th>Collection</th><th>Command</th><th>Parameters</th><th>Result</th></tr>' . $s . '
@@ -123,49 +92,16 @@ class Panel implements IBarPanel
 			</div>';
 	}
 
-	public static function renderException($e)
-	{
-		if ($e instanceof MongoClientException) {
-			$panel = NULL;
-			if ($e->request) {
-				$panel .= '<h3>Mongo Request</h3>' .
-					'<pre class="nette-dump"><span class="php-string">' .
-					nl2br(htmlSpecialChars(implode(' ', $e->request))) .
-					'</span></pre>';
-			}
-			if ($e->response) {
-				$response = Code\Helpers::dump($e->response);
-				$panel .= '<h3>Mongo Response (' . strlen($e->response) . ')</h3>' .
-					'<pre class="nette-dump"><span class="php-string">' .
-					htmlSpecialChars($response) .
-					'</span></pre>';
-			}
-
-			if ($panel !== NULL) {
-				$panel = [
-					'tab' => 'Mongo Response',
-					'panel' => $panel
-				];
-			}
-
-			return $panel;
-		}
-	}
-
 	public static function register()
 	{
-		self::getDebuggerBlueScreen()->addPanel([$panel = new static(), 'renderException']);
+        $panel = new static();
 		self::getDebuggerBar()->addPanel($panel);
 		return $panel;
 	}
 
 	private static function getDebuggerBar()
 	{
-		return Debugger::getBar();
-	}
-
-	private static function getDebuggerBlueScreen()
-	{
-		return Debugger::getBlueScreen();
+		return \Tracy\Debugger::getBar();
 	}
 }
+
