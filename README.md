@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This package contains nette extension, which wraps official PHP library and visualises queries in tracy panel.
+This package contains nette extension, which wraps official PHP library and visualises queries in tracy panel. Extension is heavily inspired by [kdyby/translation](https://github.com/kdyby/translation) package.
 
 ## Dependencies
 
