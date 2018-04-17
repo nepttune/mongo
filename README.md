@@ -14,7 +14,7 @@ This package contains nette extension, which wraps official PHP library and visu
 ## How to use
 
 - Register `\Nepttune\Mongo\DI\MongoExtension` as extension in cofiguration file.
-- Specify connection details in confuguration file.
+- Specify connection details in confuguration file. You can define multiple connections.
 - Inject services where you require to work with mongo.
 
 ### Example configuration
@@ -34,7 +34,7 @@ mongo:
             debugger: true // register panel extension
 ```
 
-Extension registers following services:
+Extension registers following services (for every connection):
 
 - `\MongoDB\Driver\Manager`
 - `\MongoDB\Database`
