@@ -24,8 +24,17 @@ extensions:
     mongo: Nepttune\Mongo\DI\MongoExtension
     
 mongo:
-    host: mongodb://localhost
-    user: 'X'
-    password: 'X'
-    ssl: false
+    connection:
+        default:
+            host: 'mongodb://localhost'
+            user: 'X'
+            password: 'X'
+            database: 'X'
+            ssl: false
+            debugger: true // register panel extension
 ```
+
+Extension registers following services:
+
+- `\MongoDB\Driver\Manager`
+- `\MongoDB\Database`
