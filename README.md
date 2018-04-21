@@ -2,9 +2,16 @@
 
 :floppy_disk: MongoDB Nette extension 
 
+![Packagist](https://img.shields.io/packagist/dt/nepttune/mongo.svg)
+![Packagist](https://img.shields.io/packagist/v/nepttune/mongo.svg)
+[![CommitsSinceTag](https://img.shields.io/github/commits-since/nepttune/mongo/v1.0.2.svg?maxAge=600)]()
+
+[![Code Climate](https://codeclimate.com/github/nepttune/mongo/badges/gpa.svg)](https://codeclimate.com/github/nepttune/mongo)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nepttune/mongo/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/nepttune/mongo/?branch=master)
+
 ## Introduction
 
-This package contains nette extension, which wraps official PHP library and visualises queries in tracy panel. Extension is heavily inspired by [kdyby/translation](https://github.com/kdyby/translation) package.
+This package contains nette extension, which wraps official PHP library and visualises queries in tracy panel. Extension is heavily inspired by [kdyby/redis](https://github.com/kdyby/redis) package.
 
 ## Dependencies
 
